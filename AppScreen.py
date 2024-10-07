@@ -4,37 +4,20 @@ from kivy.uix.label import Label
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.textinput import TextInput
 from kivy.uix.button import Button
+from kivy.uix. widget import Widget
+from kivy.properties import ObjectProperty
 
-class MyGrid(GridLayout):
-    def  __init__(self, **kwargs):
-        super(MyGrid, self).__init__(**kwargs)
-        self.cols = 1 #first grid
 
-        self.inside = GridLayout() #defining second grid
-        self.inside.cols = 2 #second grid
+class MyGrid(Widget):
+    name = ObjectProperty(None)
+    email = ObjectProperty(None)
     
-         #all .inside are inside the second grid
-        self.inside.add_widget(Label(text="First Name: "))
-        self.name = TextInput(multiline = False)
-        self.inside.add_widget(self.name)
+    def btn(self):
+        print("Name:", self.name.text, "email:", self.email.text)
+        self.name.text = ""
+        self.email.text = ""
 
-        self.inside.add_widget(Label(text="Last Name: "))
-        self.lastname = TextInput(multiline = False)
-        self.inside.add_widget(self.lastname)
 
-        self.inside.add_widget(Label(text="Email: "))
-        self.email = TextInput(multiline = False)
-        self.inside.add_widget(self.email)
-
-        #these are the only two rows in the main grid
-        self.add_widget(self.inside)
-
-        self.submit = Button(text = "Submit", font_size = 20)
-        self.submit.bind(on_press = self.pressed)
-        self.add_widget(self.submit) 
-        
-    def pressed(self,  instance):
-        print("Pressed")
 
 class MyApp(App):
     def build(self):
